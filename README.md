@@ -1,2 +1,18 @@
 # obfs4PortScan
-Tests if a Tor bridge's obfs4 port is publicly reachable.
+This service lets bridge operators test if their bridge's obfs4 port is
+publicly reachable.
+
+## Command line arguments arguments
+The tool takes as input two command line arguments: a path to a certificate
+file and a path to its key file, both in PEM format.  We use these files to run
+the HTTPS server.
+
+## Scanning method
+We try to establish a TCP connection with the given IP address and port using
+golang's `net.DialTimeout` function.  If we don't get a response within three
+seconds, we deem the port unreachable.  We also deem the port unreachable if we
+get a RST segment before the timeout.  In both cases, we display the error
+message that we got from `net.DialTimeout`.
+
+We implement a simple rate limiter that limits incoming requests to an average
+of one per second with bursts of as many as five requests per second.
