@@ -12,17 +12,17 @@ var IndexPage = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <title>Test your obfs4 bridge's TCP port</title>
+  <title>Test your obfs4 bridge&rsquo;s TCP port</title>
 </head>
 
 <body>
   <form method="POST" action="scan">
-    <h2>Tor bridge reachability test</h2>
-    <p>This service allows you to test if your obfs4 bridge is reachable to the
-    rest of the world.</p>
-    <p>Enter your bridge's IP address and obfs4 port, and click 'Scan'.  The service
-    will then try to establish a TCP connection with your bridge and tell you
-    if it succeeded.</p>
+    <h2>TCP reachability test</h2>
+    <p>This service allows you to test if your obfs4 bridge port is reachable
+    to the rest of the world.</p>
+	<p>Enter your bridge&rsquo;s IP address and obfs4 port, and click
+	&ldquo;Scan&rdquo;.  The service will then try to establish a TCP
+	connection with your bridge and tell you if it succeeded.</p>
     <input type="text" required name="address" placeholder="IP address">
     <input type="text" required name="port" placeholder="Obfs4 port">
     <label ></label>
