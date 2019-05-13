@@ -67,6 +67,7 @@ func FailurePage(reason error) string {
 <body>
   <div align='center'>
     <h2 style='color:red'>TCP port is <i>not</i> reachable!</h2>
+    <p>Here&rsquo;s the error message we are getting:</p>
     <tt>
 `
 
