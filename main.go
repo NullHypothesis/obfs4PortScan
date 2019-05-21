@@ -1,12 +1,14 @@
 package main
 
 import (
-	"fmt"
+	"flag"
+	"io"
 	"log"
 	"net/http"
 	"os"
 	"time"
 
+	"git.torproject.org/pluggable-transports/snowflake.git/common/safelog"
 	"github.com/gorilla/mux"
 )
 
@@ -76,13 +78,27 @@ func Logger(inner http.Handler, name string) http.Handler {
 // main is the entry point of this tool.
 func main() {
 
-	if len(os.Args) != 3 {
-		fmt.Printf("Usage: %s CERT_FILE KEY_FILE\n", os.Args[0])
-		os.Exit(1)
+	var certFile string
+	var keyFile string
+	var addr string
+
+	flag.StringVar(&certFile, "cert-file", "", "Path to the certificate to use, in .pem format.")
+	flag.StringVar(&keyFile, "key-file", "", "Path to the certificate's private key, in .pem format.")
+	flag.StringVar(&addr, "addr", ":443", "Address to listen on.")
+	flag.Parse()
+
+	var logOutput io.Writer = os.Stderr
+	// We want to send the log output through our scrubber first
+	log.SetOutput(&safelog.LogScrubber{Output: logOutput})
+	log.SetFlags(log.LstdFlags | log.LUTC)
+
+	if certFile == "" {
+		log.Fatalf("The -cert-file argument is required.")
 	}
-	certFile := os.Args[1]
-	keyFile := os.Args[2]
+	if keyFile == "" {
+		log.Fatalf("The -key-file argument is required.")
+	}
 
 	router := NewRouter()
-	log.Fatal(http.ListenAndServeTLS(":8080", certFile, keyFile, router))
+	log.Fatal(http.ListenAndServeTLS(addr, certFile, keyFile, router))
 }

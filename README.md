@@ -4,8 +4,10 @@ publicly reachable.
 
 ## Command line arguments arguments
 The tool takes as input two command line arguments: a path to a certificate
-file and a path to its key file, both in PEM format.  We use these files to run
-the HTTPS server.
+file (specified by the argument `-cert-file`) and a path to its key file
+(specified by the argument `-key-file`), both in PEM format.  We use these
+files to run the HTTPS server. An optional third argument (`-addr`) can be used
+to specify the address and port to listen on.
 
 ## Scanning method
 We try to establish a TCP connection with the given IP address and port using
