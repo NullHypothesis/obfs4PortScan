@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"flag"
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -76,12 +75,19 @@ func Logger(inner http.Handler, name string) http.Handler {
 // main is the entry point of this tool.
 func main() {
 
-	if len(os.Args) != 3 {
-		fmt.Printf("Usage: %s CERT_FILE KEY_FILE\n", os.Args[0])
-		os.Exit(1)
+	var certFile string
+	var keyFile string
+
+	flag.StringVar(&certFile, "cert-file", "", "Path to the certificate to use, in .pem format.")
+	flag.StringVar(&keyFile, "key-file", "", "Path to the certificate's private key, in .pem format.")
+	flag.Parse()
+
+	if certFile == "" {
+		log.Fatalf("The -cert-file argument is required.")
 	}
-	certFile := os.Args[1]
-	keyFile := os.Args[2]
+	if keyFile == "" {
+		log.Fatalf("The -key-file argument is required.")
+	}
 
 	router := NewRouter()
 	log.Fatal(http.ListenAndServeTLS(":8080", certFile, keyFile, router))
