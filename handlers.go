@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+// timeout specifies the number of seconds we're willing to wait until we
+// decide that the given destination is offline.
+const timeout time.Duration = 3 * time.Second
+
 // limiter implements a rate limiter.  We allow 1 request per second on average
 // with bursts of up to 5 requests per second.
 var limiter = rate.NewLimiter(1, 5)
@@ -38,10 +42,6 @@ func ScanDestination(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// The number of seconds we're willing to wait until we decide that the
-	// given destination is offline.
-	timeout, _ := time.ParseDuration("3s")
-
 	r.ParseForm()
 	// These variables will be "" if they're not set.
 	address := r.Form.Get("address")
@@ -56,7 +56,7 @@ func ScanDestination(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	portReachable, err := IsTCPPortReachable(address, port, timeout)
+	portReachable, err := IsTCPPortReachable(address, port)
 	if portReachable {
 		SendResponse(w, SuccessPage)
 	} else {
@@ -67,7 +67,7 @@ func ScanDestination(w http.ResponseWriter, r *http.Request) {
 // IsTCPPortReachable returns `true' if it can establish a TCP connection with
 // the given IP address and port.  If not, it returns `false' and the
 // respective error, as reported by `net.DialTimeout'.
-func IsTCPPortReachable(addr, port string, timeout time.Duration) (bool, error) {
+func IsTCPPortReachable(addr, port string) (bool, error) {
 
 	conn, err := net.DialTimeout("tcp", fmt.Sprintf("%s:%s", addr, port), timeout)
 	if err != nil {
