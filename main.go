@@ -80,9 +80,11 @@ func main() {
 
 	var certFile string
 	var keyFile string
+	var addr string
 
 	flag.StringVar(&certFile, "cert-file", "", "Path to the certificate to use, in .pem format.")
 	flag.StringVar(&keyFile, "key-file", "", "Path to the certificate's private key, in .pem format.")
+	flag.StringVar(&addr, "addr", ":443", "Address to listen on.")
 	flag.Parse()
 
 	var logOutput io.Writer = os.Stderr
@@ -98,5 +100,5 @@ func main() {
 	}
 
 	router := NewRouter()
-	log.Fatal(http.ListenAndServeTLS(":8080", certFile, keyFile, router))
+	log.Fatal(http.ListenAndServeTLS(addr, certFile, keyFile, router))
 }
