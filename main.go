@@ -2,10 +2,13 @@ package main
 
 import (
 	"flag"
+	"io"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
+	"git.torproject.org/pluggable-transports/snowflake.git/common/safelog"
 	"github.com/gorilla/mux"
 )
 
@@ -81,6 +84,11 @@ func main() {
 	flag.StringVar(&certFile, "cert-file", "", "Path to the certificate to use, in .pem format.")
 	flag.StringVar(&keyFile, "key-file", "", "Path to the certificate's private key, in .pem format.")
 	flag.Parse()
+
+	var logOutput io.Writer = os.Stderr
+	// We want to send the log output through our scrubber first
+	log.SetOutput(&safelog.LogScrubber{Output: logOutput})
+	log.SetFlags(log.LstdFlags | log.LUTC)
 
 	if certFile == "" {
 		log.Fatalf("The -cert-file argument is required.")
