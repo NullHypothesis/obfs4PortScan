@@ -78,12 +78,8 @@ func Logger(inner http.Handler, name string) http.Handler {
 // main is the entry point of this tool.
 func main() {
 
-	var certFile string
-	var keyFile string
 	var addr string
 
-	flag.StringVar(&certFile, "cert-file", "", "Path to the certificate to use, in .pem format.")
-	flag.StringVar(&keyFile, "key-file", "", "Path to the certificate's private key, in .pem format.")
 	flag.StringVar(&addr, "addr", ":443", "Address to listen on.")
 	flag.Parse()
 
@@ -92,13 +88,6 @@ func main() {
 	log.SetOutput(&safelog.LogScrubber{Output: logOutput})
 	log.SetFlags(log.LstdFlags | log.LUTC)
 
-	if certFile == "" {
-		log.Fatalf("The -cert-file argument is required.")
-	}
-	if keyFile == "" {
-		log.Fatalf("The -key-file argument is required.")
-	}
-
 	router := NewRouter()
-	log.Fatal(http.ListenAndServeTLS(addr, certFile, keyFile, router))
+	log.Fatal(http.ListenAndServe(addr, router))
 }
