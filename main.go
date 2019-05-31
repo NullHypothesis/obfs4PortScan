@@ -80,7 +80,7 @@ func main() {
 
 	var addr string
 
-	flag.StringVar(&addr, "addr", ":443", "Address to listen on.")
+	flag.StringVar(&addr, "addr", ":4000", "Address to listen on.")
 	flag.Parse()
 
 	var logOutput io.Writer = os.Stderr
