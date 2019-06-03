@@ -6,12 +6,12 @@ import (
 
 // IndexPage contains the landing page of the service.  It implements a simple
 // form that asks for an IP address and TCP port.
-var IndexPage = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-    "http://www.w3.org/TR/html4/strict.dtd">
+var IndexPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
   <title>Test your obfs4 bridge&rsquo;s TCP port</title>
 </head>
 
@@ -34,12 +34,12 @@ var IndexPage = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 `
 
 // SuccessPage is shown when the given address and port are reachable.
-var SuccessPage = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-    "http://www.w3.org/TR/html4/strict.dtd">
+var SuccessPage = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
   <title>Success!</title>
 </head>
 
@@ -55,12 +55,12 @@ var SuccessPage = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
 // FailurePage2 is shown when the given address and port are unreachable.
 func FailurePage(reason error) string {
 
-	var failurePage1 = `<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
-    "http://www.w3.org/TR/html4/strict.dtd">
+	var failurePage1 = `<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
   <title>Failure!</title>
 </head>
 
