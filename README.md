@@ -18,3 +18,18 @@ message that we got from `net.DialTimeout`.
 
 We implement a simple rate limiter that limits incoming requests to an average
 of one per second with bursts of as many as five requests per second.
+
+## Deployment
+First, compile the binary:
+
+    go build
+
+Then, shut down the obfs4PortScan service on BridgeDB which runs under the
+bridgescan user:
+
+    systemctl --user stop obfs4portscan.service
+
+Then, copy the binary onto BridgeDB's host.  It belongs into the directory
+`/home/bridgescan/bin/`.  Once it's there, restart the service:
+
+    systemctl --user start obfs4portscan.service
