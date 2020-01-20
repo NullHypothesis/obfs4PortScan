@@ -16,7 +16,7 @@ var IndexPage = `<!DOCTYPE html>
 </head>
 
 <body>
-  <form method="POST" action="scan">
+  <form method="GET" action="scan">
     <h2>TCP reachability test</h2>
     <p>This service allows you to test if your obfs4 bridge port is reachable
     to the rest of the world.</p>

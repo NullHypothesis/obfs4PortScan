@@ -31,7 +31,7 @@ func SendResponse(w http.ResponseWriter, response string) {
 	fmt.Fprintln(w, response)
 }
 
-// ScanDestination extracts the given IP address and port from the POST
+// ScanDestination extracts the given IP address and port from the GET
 // parameters, triggers TCP scanning of the tuple, and returns the result.
 func ScanDestination(w http.ResponseWriter, r *http.Request) {
 

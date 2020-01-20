@@ -30,7 +30,7 @@ var routes = Routes{
 	},
 	Route{
 		"ScanDestination",
-		"POST",
+		"GET",
 		"/scan",
 		ScanDestination,
 	},
