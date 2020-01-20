@@ -20,9 +20,9 @@ var IndexPage = `<!DOCTYPE html>
     <h2>TCP reachability test</h2>
     <p>This service allows you to test if your obfs4 bridge port is reachable
     to the rest of the world.</p>
-	<p>Enter your bridge&rsquo;s IP address and obfs4 port, and click
-	&ldquo;Scan&rdquo;.  The service will then try to establish a TCP
-	connection with your bridge and tell you if it succeeded.</p>
+    <p>Enter your bridge&rsquo;s IP address and obfs4 port, and click
+    &ldquo;Scan&rdquo;.  The service will then try to establish a TCP
+    connection with your bridge and tell you if it succeeded.</p>
     <input type="text" required name="address" placeholder="IP address">
     <input type="text" required name="port" placeholder="Obfs4 port">
     <label ></label>
